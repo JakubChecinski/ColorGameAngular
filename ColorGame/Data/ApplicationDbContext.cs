@@ -13,5 +13,15 @@ namespace ColorGame.Data
         {
 
         }
+        public DbSet<ApplicationUser>? ApplicationUsers { get; set; }
+        public DbSet<BestScore>? BestScores { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<BestScore>().
+                Property(obj => obj.Value).HasPrecision(7, 2);
+        }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ColorGame.Data;
+using ColorGame.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -6,23 +8,44 @@ namespace ColorGame.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    [Route("[controller]/[action]")]
+    public class BestScoreController : ControllerBase
     {
-        private readonly ILogger<WeatherForecastController> _logger;
+        // note: in this mini-project, service and repository layers are ommitted
+        // as we only want to access a single column in a single DB table
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private ApplicationDbContext context;
+        public BestScoreController(ApplicationDbContext context)
         {
-            _logger = logger;
+            this.context = context;
         }
 
         [HttpGet]
         public decimal Get()
         {
-            if (User == null || User.Claims == null) return 0.0m;
-            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userId = GetUserId();
             if (userId == null) return 0.0m;
-            else return 1.0m;
+            BestScore? score = context.BestScores?.SingleOrDefault(x => x.UserId == userId);
+            if (score == null) return 0.0m;
+            else return score.Value;
+        }
+
+        [HttpPost("{score}")]
+        public void Update(decimal score)
+        {
+            var userId = GetUserId();
+            if (userId == null) return;
+            var scoreToUpdate = context.BestScores?.FirstOrDefault(x => x.UserId == userId);
+            if (scoreToUpdate != null) scoreToUpdate.Value = score;
+            else context.BestScores?.Add(new BestScore() { UserId = userId, Value = score });
+            context.SaveChanges();
+        }
+
+        private string? GetUserId()
+        {
+            if (User == null || User.Claims == null) return null;
+            var userId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            return userId;
         }
 
     }

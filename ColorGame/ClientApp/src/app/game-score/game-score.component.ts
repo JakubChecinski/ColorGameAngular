@@ -18,15 +18,16 @@ export class GameScoreComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.refreshComponent();
+  }
+
+  refreshComponent() {
     this.authorizeService.isAuthenticated()
       .subscribe(responseData => {
-        this.isAuthenticated = responseData;
-        if (responseData)
-        {
+        if (responseData) {
           this.service.getBestScoreAllTime()
-            .subscribe(responseData => {
-              this.bestScoreAllTime = responseData.toFixed(1);
-            });
+            .subscribe(score => { this.bestScoreAllTime = score.toFixed(1); })
+          this.isAuthenticated = true;
         }
       });
   }
@@ -40,8 +41,13 @@ export class GameScoreComponent implements OnInit
     }
     if (value < +this.bestScoreAllTime || +this.bestScoreAllTime <= 0.0)
     {
-      this.service.updateBestScoreAllTime(+this.score);
       this.bestScoreAllTime = this.score;
+      this.authorizeService.isAuthenticated()
+        .subscribe(responseData => {
+          if (responseData) {
+            this.service.updateBestScoreAllTime(+this.score);
+          }
+        });
     }
   }
 
