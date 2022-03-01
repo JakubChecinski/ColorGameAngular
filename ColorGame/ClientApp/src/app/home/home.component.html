@@ -1,0 +1,32 @@
+<div class="gameDiv">
+  <div>
+    <h3>Instructions</h3>
+    <p>
+      If the displayed shape is a <strong>circle </strong>
+      <span style="font-size: larger"><span style="font-size: larger">●</span></span>,
+      click the button corresponding to the displayed <strong>font color.</strong>
+      <br />
+      If the displayed shape is a <strong>square </strong> <span style="font-size: larger">■</span>,
+      click the button corresponding to the shape <strong>background.</strong>
+      <br />
+      If the displayed shape is a <strong>triangle </strong>▲<span style="font-size: larger">,</span>
+      click the button corresponding to the <strong>displayed text.</strong>
+    </p>
+  </div>
+  <br />
+  <div>
+    <app-game-timer #gameTimer></app-game-timer>
+    <button (click)="guess('yellow')">Yellow</button>
+    <button (click)="guess('red')">Red</button>
+    <button (click)="guess('green')">Green</button>
+    <button (click)="guess('blue')">Blue</button>
+    <br />
+    <br />
+    <app-displayed-shape #displayedShape></app-displayed-shape>
+    <button *ngIf="!gameHasStarted" (click)="startGame()">Start game</button>
+  </div>
+  <br />
+  <div>
+    <app-game-score #gameScore></app-game-score>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 80px;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
+
+.triangle {
+  width: 0px;
+  height: 0px;
+  border-style: inset;
+  border-width: 0 40px 69px 40px;
+  -webkit-transform: rotate(360deg);
+  margin: auto!important;
+}
+
+  .triangle p {
+    text-align: center;
+    top: 32px;
+    left: -40px;
+    position: relative;
+    width: 80px;
+    height: 30px;
+    margin: 0px;
+  }
+
+.colorRiddleText {
+  height: 24px;
+  margin-bottom: 0;
+}

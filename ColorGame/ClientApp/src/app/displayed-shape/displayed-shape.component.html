@@ -1,0 +1,9 @@
+<div *ngIf="visible" [ngClass]="riddleShape"
+     style="margin: auto;"
+     [style.color] = "riddleFontColor"
+     [style.background-color] = "riddleBackground"
+     [style.border-color] = "riddleBorder">
+  <p class="colorRiddleText"><b>{{riddleText}}</b></p>
+</div>
+<p *ngIf="!visible;">{{infoText}}</p>
+
