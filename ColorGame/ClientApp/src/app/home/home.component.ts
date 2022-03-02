@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { DisplayedShapeComponent } from '../displayed-shape/displayed-shape.component';
 import { GameScoreComponent } from '../game-score/game-score.component';
 import { GameTimerComponent } from '../game-timer/game-timer.component';
@@ -13,7 +13,10 @@ import { GameTimerComponent } from '../game-timer/game-timer.component';
   templateUrl: './home.component.html',
 })
 
-export class HomeComponent {
+export class HomeComponent
+{
+  constructor(private renderer: Renderer2) { }
+
   gameHasStarted = false;
   @ViewChild('gameScore') gameScore!: GameScoreComponent;
   @ViewChild('gameTimer') gameTimer!: GameTimerComponent;
@@ -44,12 +47,12 @@ export class HomeComponent {
     this.gameHasStarted = false;
     this.correctAnswers = 0;
     if (playerHasWon) {
-      this.displayedShape.infoText = '';
+      this.renderer.setProperty(this.displayedShape, 'infoText', '');
       this.gameScore.setScore(this.gameTimer.getScore());
     }
-    else this.displayedShape.infoText =
-      "Sorry, but the correct answer was: " + this.displayedShape.getRiddleAnswer();
-    this.displayedShape.hideRiddle();
+    else this.renderer.setProperty(this.displayedShape, 'infoText',
+      'Sorry, but the correct answer was: ' + this.displayedShape.getRiddleAnswer());
+    this.displayedShape.hideRiddle(); 
   }
 
 }
