@@ -20,6 +20,15 @@ namespace ColorGame.Controllers
             this.context = context;
         }
 
+        /// <summary>
+        /// Get the best score of all time for the current user 
+        /// </summary>
+        /// <remarks>
+        /// If the user is not currently logged in or has no score saved, returns 0.0 instead
+        /// </remarks>
+        /// <returns>
+        /// Best score as decimal number
+        /// </returns>
         [HttpGet]
         public decimal Get()
         {
@@ -30,6 +39,13 @@ namespace ColorGame.Controllers
             else return score.Value;
         }
 
+        /// <summary>
+        /// Update the best score of all time for the current user 
+        /// </summary>
+        /// /// <remarks>
+        /// If the user is not currently logged in, the call is ignored instead
+        /// </remarks>
+        /// <param name="score">  decimal number with the new score value</param>
         [HttpPost("{score}")]
         public void Update(decimal score)
         {

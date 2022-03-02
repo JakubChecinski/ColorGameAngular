@@ -2,8 +2,11 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthorizeService } from '../../api-authorization/authorize.service';
 import { Observable, empty  } from 'rxjs';
-
 @Injectable({ providedIn: 'root' })
+
+/*
+  a dedicated service to perform all communications with backend
+*/
 
 export class BackendService
 {

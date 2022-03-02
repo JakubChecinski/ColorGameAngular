@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
+/*
+  this component measures and displays the time since the current game has started
+*/
+
+
 @Component({
   selector: 'app-game-timer',
   templateUrl: './game-timer.component.html',
 })
 
-export class GameTimerComponent implements OnInit
+export class GameTimerComponent
 {
   seconds = 0;
   decimals = 0;
@@ -13,10 +18,6 @@ export class GameTimerComponent implements OnInit
   startDate: any;
 
   constructor() { }
-
-  ngOnInit(): void
-  {
-  }
 
   startTimer() : void
   {

@@ -1,13 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ShapeDataService } from '../services/shapedata.service';
 
+/*
+  this component contains all display logic for the riddle shape
+  we want to ensure that the following three colors are always different from each other:
+    - the shape background color [riddleBackground]
+    - the shape foreground (font) color [riddleFontColor]
+    - the color displayed as text [riddleText]
+
+  in addition to that, there are also some css tricks we need to set up
+  in order to reliably render all possible shapes (especially triangles)
+  which is why we dynamically control the riddleBorder property (compare also html and css)
+*/
+
 @Component({
   selector: 'app-displayed-shape',
   templateUrl: './displayed-shape.component.html',
   styleUrls: ['./displayed-shape.component.css']
 })
 
-export class DisplayedShapeComponent implements OnInit
+export class DisplayedShapeComponent
 {
   visible = false;
   riddleShape = 'triangle';
@@ -18,8 +30,6 @@ export class DisplayedShapeComponent implements OnInit
   infoText = '';
 
   constructor(private service: ShapeDataService) { }
-
-  ngOnInit(): void { }
 
   getRiddleAnswer(): string
   {

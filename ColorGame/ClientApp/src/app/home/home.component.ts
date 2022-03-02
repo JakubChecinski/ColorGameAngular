@@ -3,6 +3,11 @@ import { DisplayedShapeComponent } from '../displayed-shape/displayed-shape.comp
 import { GameScoreComponent } from '../game-score/game-score.component';
 import { GameTimerComponent } from '../game-timer/game-timer.component';
 
+/*
+  home component
+*/
+
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

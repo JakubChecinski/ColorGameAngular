@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-
 @Injectable({ providedIn: 'root' })
+
+/*
+  a utility service for conversions between in-game shape codes and color strings or HTML values 
+*/
 
 export class ShapeDataService
 {
